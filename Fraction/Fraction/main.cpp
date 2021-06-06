@@ -45,26 +45,10 @@ public:
 		--* this;
 		return old;
 	}
-	Fraction& operator+=(Fraction& other)
-	{
-		*this = *this + other;
-		return *this;
-	}
-	Fraction& operator-=(Fraction& other)
-	{
-		*this = *this - other;
-		return *this;
-	}
-	Fraction& operator*=(Fraction& other)
-	{
-		*this = *this * other;
-		return *this;
-	}
-	Fraction& operator/=(Fraction& other)
-	{
-		*this = *this / other;
-		return *this;
-	}
+	Fraction& operator+=(Fraction& other) { return *this = *this + other; }
+	Fraction& operator-=(Fraction& other) { return *this = *this - other; }
+	Fraction& operator*=(Fraction& other) { return *this = *this * other; }
+	Fraction& operator/=(Fraction& other) { return *this = *this / other; }
 	Fraction(int numerator = 1, int denominator = 2)
 	{
 		this->numerator = numerator;
@@ -167,6 +151,8 @@ int main()
 	case '/': fraction_3 = fraction_1 / fraction_2; break;
 	}
 	cout << fraction_1 << sign << fraction_2 << " = " << fraction_3 << endl;
+	fraction_3 += fraction_2;
+	cout << fraction_3;
 	return 0;
 }
 
