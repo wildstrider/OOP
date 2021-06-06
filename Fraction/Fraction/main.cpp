@@ -59,9 +59,8 @@ public:
 		in >> other.denominator;
 		return in;
 	}
-	friend istream& operator>>(istream& in, Fraction& other);
-	friend ostream& operator<<(ostream& out, Fraction& other);
 };
+
 
 void FractionReduction(Fraction& other)
 {
@@ -146,7 +145,6 @@ int main()
 	cout << fraction_1 << sign << fraction_2 << " = " << fraction_3 << endl;
 	fraction_3 ++;
 	cout << fraction_3 << endl;
-	
 	return 0;
 }
 
