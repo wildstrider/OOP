@@ -50,7 +50,15 @@ public:
 		this->denominator = denominator;
 	}
 	~Fraction() {}
-
+	friend ostream& operator<<(ostream& out, Fraction& other) { return out << other.numerator << '/' << other.denominator; }
+	friend istream& operator>>(istream& in, Fraction& other)
+	{
+		cout << "Введите числитель: ";
+		in >> other.numerator;
+		cout << "Введите знаменатель: ";
+		in >> other.denominator;
+		return in;
+	}
 	friend istream& operator>>(istream& in, Fraction& other);
 	friend ostream& operator<<(ostream& out, Fraction& other);
 };
@@ -65,15 +73,6 @@ void FractionReduction(Fraction& other)
 			break;
 		}
 	}
-}
-ostream& operator<<(ostream& out, Fraction& other) { return out << other.numerator << '/' << other.denominator; }
-istream& operator>>(istream& in, Fraction& other)
-{
-	cout << "Введите числитель: ";
-	in >> other.numerator;
-	cout << "Введите знаменатель: ";
-	in >> other.denominator;
-	return in;
 }
 Fraction operator+(const Fraction& fraction_1, const Fraction& fraction_2)
 {
@@ -147,6 +146,7 @@ int main()
 	cout << fraction_1 << sign << fraction_2 << " = " << fraction_3 << endl;
 	fraction_3 ++;
 	cout << fraction_3 << endl;
+	
 	return 0;
 }
 
