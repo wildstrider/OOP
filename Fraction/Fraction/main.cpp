@@ -3,26 +3,25 @@ using namespace std;
 #define tab "\t"
 class Fraction;
 
-Fraction operator+(Fraction& fraction_1, Fraction& fraction_2);
-Fraction operator-(Fraction& fraction_1, Fraction& fraction_2);
-Fraction operator*(Fraction& fraction_1, Fraction& fraction_2);
-Fraction operator/(Fraction& fraction_1, Fraction& fraction_2);
+Fraction operator+(const Fraction& fraction_1, const Fraction& fraction_2);
+Fraction operator-(const Fraction& fraction_1, const Fraction& fraction_2);
+Fraction operator*(const Fraction& fraction_1, const Fraction& fraction_2);
+Fraction operator/(const Fraction& fraction_1, const Fraction& fraction_2);
 
 class Fraction
 {
 	int numerator;
     int denominator;	
 public:
-	int GetNumerator() { return numerator; }
-	int GetDenominator() { return denominator; }
+	int GetNumerator() const { return numerator; }
+	int GetDenominator() const { return denominator; }
 	void SetNumenator(int numenator) { this->numerator = numenator; }
 	void SetDenominator(int denominator) { this->denominator = denominator; }
-	void Print() 
-	{ cout << this->GetNumerator() << '/' << this->GetDenominator() << endl; }
+	void Print() const { cout << this->GetNumerator() << '/' << this->GetDenominator() << endl; }
 	Fraction& operator++()//++Fraction
 	{
 		Fraction fracTemp;
-		fracTemp.SetNumenator(this-> GetDenominator());
+	    fracTemp.SetNumenator(this-> GetDenominator());
 		fracTemp.SetDenominator(this-> GetDenominator());
 		return *this = *this + fracTemp;
 	}
@@ -39,16 +38,16 @@ public:
 		fracTemp.SetDenominator(this->GetDenominator());
 		return *this = *this - fracTemp;
 	}
-	Fraction operator--(int)//--Fraction
+	Fraction operator--(int)//Fraction--
 	{
 		Fraction old = *this;
 		--* this;
 		return old;
 	}
-	Fraction& operator+=(Fraction& other) { return *this = *this + other; }
-	Fraction& operator-=(Fraction& other) { return *this = *this - other; }
-	Fraction& operator*=(Fraction& other) { return *this = *this * other; }
-	Fraction& operator/=(Fraction& other) { return *this = *this / other; }
+	Fraction& operator+=(const Fraction& other) { return *this = *this + other; }
+	Fraction& operator-=(const Fraction& other) { return *this = *this - other; }
+	Fraction& operator*=(const Fraction& other) { return *this = *this * other; }
+	Fraction& operator/=(const Fraction& other) { return *this = *this / other; }
 	Fraction(int numerator = 1, int denominator = 2)
 	{
 		this->numerator = numerator;
@@ -80,7 +79,7 @@ istream& operator>>(istream& in, Fraction& other)
 	in >> other.denominator;
 	return in;
 }
-Fraction operator+(Fraction& fraction_1, Fraction& fraction_2)
+Fraction operator+(const Fraction& fraction_1, const Fraction& fraction_2)
 {
 	Fraction fracTemp;
 	if (fraction_1.GetDenominator() == fraction_2.GetDenominator())
@@ -97,7 +96,7 @@ Fraction operator+(Fraction& fraction_1, Fraction& fraction_2)
      FractionReduction(fracTemp);
 	return fracTemp;
 }
-Fraction operator-(Fraction& fraction_1, Fraction& fraction_2)
+Fraction operator-(const Fraction& fraction_1, const Fraction& fraction_2)
 {
 	Fraction fracTemp;
 	if (fraction_1.GetDenominator() == fraction_2.GetDenominator())
@@ -113,7 +112,7 @@ Fraction operator-(Fraction& fraction_1, Fraction& fraction_2)
 	FractionReduction(fracTemp);
 	return fracTemp;
 }
-Fraction operator*(Fraction & fraction_1, Fraction& fraction_2)
+Fraction operator*(const Fraction& fraction_1, const Fraction& fraction_2)
 {
 	Fraction fracTemp;
 	fracTemp.SetNumenator(fraction_1.GetNumerator() * fraction_2.GetNumerator());
@@ -121,7 +120,7 @@ Fraction operator*(Fraction & fraction_1, Fraction& fraction_2)
 	FractionReduction(fracTemp);
 	return fracTemp;
 }
-Fraction operator/(Fraction& fraction_1, Fraction& fraction_2)
+Fraction operator/(const Fraction& fraction_1, const Fraction& fraction_2)
 {
 	Fraction fracTemp;
 	fracTemp.SetNumenator(fraction_1.GetNumerator() * fraction_2.GetDenominator());
@@ -129,9 +128,9 @@ Fraction operator/(Fraction& fraction_1, Fraction& fraction_2)
 	FractionReduction(fracTemp);
 	return fracTemp;
 }
-bool operator==(Fraction& fraction_1, Fraction& fraction_2)
+bool operator==(const Fraction& fraction_1, const Fraction& fraction_2)
 { return fraction_1.GetNumerator() == fraction_2.GetNumerator() && fraction_1.GetDenominator() == fraction_2.GetDenominator(); }
-bool operator!=(Fraction& fraction_1, Fraction& fraction_2)
+bool operator!=(const Fraction& fraction_1, const Fraction& fraction_2)
 { return !(fraction_1.GetNumerator() == fraction_2.GetNumerator() && fraction_1.GetDenominator() == fraction_2.GetDenominator()); }
 int main()
 {
@@ -150,7 +149,7 @@ int main()
 	}
 	cout << fraction_1 << sign << fraction_2 << " = " << fraction_3 << endl;
 	fraction_3 += fraction_2;
-	cout << fraction_3;
+	cout << fraction_3 << endl;
 	return 0;
 }
 
