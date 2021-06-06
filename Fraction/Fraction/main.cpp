@@ -137,10 +137,8 @@ int main()
 {
 	setlocale(LC_ALL, "ru");
 	Fraction fraction_1, fraction_2, fraction_3;
-	cout << "fraction_1 " << endl;
-	cin >> fraction_1;
-	cout << "fraction_2" << endl;
-	cin >> fraction_2;
+	cout << "fraction_1" << endl; cin >> fraction_1;
+	cout << "fraction_2" << endl; cin >> fraction_2;
 	cout << "Выберите действие +-*/ " << endl; char sign; cin >> sign;
 
 	switch (sign)
