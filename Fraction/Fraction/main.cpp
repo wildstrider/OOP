@@ -20,9 +20,7 @@ public:
 	void Print() const { cout << this->GetNumerator() << '/' << this->GetDenominator() << endl; }
 	Fraction& operator++()//++Fraction
 	{
-		Fraction fracTemp;
-	    fracTemp.SetNumenator(this-> GetDenominator());
-		fracTemp.SetDenominator(this-> GetDenominator());
+		Fraction fracTemp(this->GetDenominator(), this->GetDenominator());
 		return *this = *this + fracTemp;
 	}
 	Fraction operator++(int)//Fraction++ 
@@ -33,9 +31,7 @@ public:
 	}
 	Fraction& operator--()//--Fraction
 	{
-		Fraction fracTemp;
-		fracTemp.SetNumenator(this->GetDenominator());
-		fracTemp.SetDenominator(this->GetDenominator());
+		Fraction fracTemp(this->GetDenominator(), this->GetDenominator());
 		return *this = *this - fracTemp;
 	}
 	Fraction operator--(int)//Fraction--
@@ -132,6 +128,7 @@ bool operator==(const Fraction& fraction_1, const Fraction& fraction_2)
 { return fraction_1.GetNumerator() == fraction_2.GetNumerator() && fraction_1.GetDenominator() == fraction_2.GetDenominator(); }
 bool operator!=(const Fraction& fraction_1, const Fraction& fraction_2)
 { return !(fraction_1.GetNumerator() == fraction_2.GetNumerator() && fraction_1.GetDenominator() == fraction_2.GetDenominator()); }
+
 int main()
 {
 	setlocale(LC_ALL, "ru");
@@ -148,7 +145,7 @@ int main()
 	case '/': fraction_3 = fraction_1 / fraction_2; break;
 	}
 	cout << fraction_1 << sign << fraction_2 << " = " << fraction_3 << endl;
-	fraction_3 += fraction_2;
+	fraction_3 ++;
 	cout << fraction_3 << endl;
 	return 0;
 }
