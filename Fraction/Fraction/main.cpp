@@ -50,7 +50,7 @@ public:
 		this->denominator = denominator;
 	}
 	~Fraction() {}
-	friend ostream& operator<<(ostream& out, Fraction& other) { return out << other.numerator << '/' << other.denominator; }
+	friend ostream& operator<<(ostream& out,const  Fraction& other) { return out << other.numerator << '/' << other.denominator; }
 	friend istream& operator>>(istream& in, Fraction& other)
 	{
 		cout << "Введите числитель: ";
@@ -92,6 +92,7 @@ Fraction operator+(const Fraction& fraction_1, const Fraction& fraction_2)
 }
 Fraction operator-(const Fraction& fraction_1, const Fraction& fraction_2)
 {
+
 	Fraction fracTemp;
 	if (fraction_1.GetDenominator() == fraction_2.GetDenominator())
 	{
@@ -123,9 +124,9 @@ Fraction operator/(const Fraction& fraction_1, const Fraction& fraction_2)
 	return fracTemp;
 }
 bool operator==(const Fraction& fraction_1, const Fraction& fraction_2)
-{ return fraction_1.GetNumerator() == fraction_2.GetNumerator() && fraction_1.GetDenominator() == fraction_2.GetDenominator(); }
+{ return fraction_1.GetNumerator() * fraction_2.GetDenominator() == fraction_1.GetDenominator() * fraction_2.GetNumerator(); }
 bool operator!=(const Fraction& fraction_1, const Fraction& fraction_2)
-{ return !(fraction_1.GetNumerator() == fraction_2.GetNumerator() && fraction_1.GetDenominator() == fraction_2.GetDenominator()); }
+{ return !(fraction_1 == fraction_2); }
 
 int main()
 {
