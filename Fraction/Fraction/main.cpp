@@ -14,13 +14,13 @@ class Fraction
 	int numerator;
     int denominator;	
 	double Double = 0;
-	int sum;
+	int sum = 0;
 public:
 	int GetNumerator() const { return numerator; }
 	int GetDenominator() const { return denominator; }
 	int GetInteger() const { return integer; }
 	double GetDouble() const { return Double; }
-	int GetSum() const { return sum; }
+	int GetSum() const { int x = this->GetInteger() * this->GetDenominator() + this->GetNumerator(); return x; }
 	void SetDuoble(int numerator, int denominator) { this->Double = (double)numerator / (double)denominator + integer; }
 	void SetNumenator(int numenator) { this->numerator = numenator; }
 	void SetDenominator(int denominator) { this->denominator = denominator; }
@@ -57,7 +57,6 @@ public:
 		if (integer) this->integer = integer;
 		this->numerator = numerator;
 		this->denominator = denominator;
-		//this->sum = this-> GetInteger()? this ->GetInteger() * this->GetDenominator() + this->GetNumerator() : this->GetDenominator() + this->GetNumerator();
 	}
 	~Fraction() {}
 	friend ostream& operator<<(ostream& out, const  Fraction& other)
@@ -98,65 +97,53 @@ Fraction FractionReduction(Fraction& other)
 Fraction operator+(const Fraction& fraction_1, const Fraction& fraction_2)
 {
 	Fraction fracTemp;
-	if (fraction_1.GetDenominator() == fraction_2.GetDenominator())
+	if (fraction_1.GetDenominator() == fraction_2.GetDenominator()) 
 	{
-
-		fracTemp.SetNumenator((fraction_1.GetInteger() * fraction_1.GetDenominator() + fraction_1.GetNumerator()) +
-			(fraction_2.GetInteger() * fraction_2.GetDenominator() + fraction_2.GetNumerator()));
-		fracTemp.SetDenominator(fraction_1.GetDenominator());
+		fracTemp.SetNumenator(fraction_1.GetSum() + fraction_2.GetSum());
+	    fracTemp.SetDenominator(fraction_1.GetDenominator());
 	}
 	else
 	{
-		fracTemp.SetNumenator((fraction_2.GetDenominator() * (fraction_1.GetInteger() * fraction_1.GetDenominator() + fraction_1.GetNumerator())) +
-			(fraction_1.GetDenominator() * (fraction_2.GetInteger() * fraction_2.GetDenominator() + fraction_2.GetNumerator())));
+		fracTemp.SetNumenator(fraction_2.GetDenominator() * fraction_1.GetSum() + fraction_1.GetDenominator() * fraction_2.GetSum()),
 		fracTemp.SetDenominator(fraction_1.GetDenominator() * fraction_2.GetDenominator());
 	}
-	FractionReduction(fracTemp);
-	return fracTemp;
+	return FractionReduction(fracTemp);
 }
 Fraction operator-(const Fraction& fraction_1, const Fraction& fraction_2)
 {
-
 	Fraction fracTemp;
-	if (fraction_1.GetDenominator() == fraction_2.GetDenominator())
+	if (fraction_1.GetDenominator() == fraction_2.GetDenominator()) 
 	{
-		fracTemp.SetNumenator((fraction_1.GetInteger() * fraction_1.GetDenominator() + fraction_1.GetNumerator())-
-			(fraction_2.GetInteger() * fraction_2.GetDenominator() + fraction_2.GetNumerator()));
-		fracTemp.SetDenominator(fraction_1.GetDenominator());
+		fracTemp.SetNumenator(fraction_1.GetSum() - fraction_2.GetSum());
+			fracTemp.SetDenominator(fraction_1.GetDenominator());
 	}
 	else
 	{
-		fracTemp.SetNumenator((fraction_2.GetDenominator() * (fraction_1.GetInteger() * fraction_1.GetDenominator() + fraction_1.GetNumerator())) -
-			(fraction_1.GetDenominator() * (fraction_2.GetInteger() * fraction_2.GetDenominator() + fraction_2.GetNumerator())));
-		fracTemp.SetDenominator(fraction_1.GetDenominator() * fraction_2.GetDenominator());
+		fracTemp.SetNumenator(fraction_2.GetDenominator() * fraction_1.GetSum() - fraction_1.GetDenominator() * fraction_2.GetSum()),
+			fracTemp.SetDenominator(fraction_1.GetDenominator() * fraction_2.GetDenominator());
 	}
-	FractionReduction(fracTemp);
-	return fracTemp;
+	 return FractionReduction(fracTemp);
 }
 Fraction operator*(const Fraction& fraction_1, const Fraction& fraction_2)
 {
 	Fraction fracTemp;
-	fracTemp.SetNumenator((fraction_1.GetInteger() * fraction_1.GetDenominator() + fraction_1.GetNumerator()) *
-			(fraction_2.GetInteger() * fraction_2.GetDenominator() + fraction_2.GetNumerator()));
+	fracTemp.SetNumenator(fraction_1.GetSum() * fraction_2.GetSum());
 	fracTemp.SetDenominator(fraction_1.GetDenominator() * fraction_2.GetDenominator());
-	FractionReduction(fracTemp);
-	return fracTemp;
+	return FractionReduction(fracTemp);
 }
 Fraction operator/(const Fraction& fraction_1, const Fraction& fraction_2)
 {
 	Fraction fracTemp;
-	int _numerator = fraction_1.GetInteger() * fraction_1.GetDenominator() + fraction_1.GetNumerator();
-	int _denominator = fraction_2.GetInteger() * fraction_2.GetDenominator() + fraction_2.GetNumerator();
+	int _numerator = fraction_1.GetSum();
+	int _denominator = fraction_2.GetSum();
 	fracTemp.SetNumenator(_numerator * fraction_2.GetDenominator());
 	fracTemp.SetDenominator(fraction_1.GetDenominator() * _denominator);
-	FractionReduction(fracTemp);
-	return fracTemp;
+	return FractionReduction(fracTemp);
 }
 bool operator==(const Fraction& fraction_1, const Fraction& fraction_2)
 { return fraction_1.GetNumerator() * fraction_2.GetDenominator() == fraction_1.GetDenominator() * fraction_2.GetNumerator() && 
          fraction_1.GetInteger() == fraction_2.GetInteger() ; }
-bool operator!=(const Fraction& fraction_1, const Fraction& fraction_2)
-{ return !(fraction_1 == fraction_2); }
+bool operator!=(const Fraction& fraction_1, const Fraction& fraction_2){ return !(fraction_1 == fraction_2); }
 bool operator<(const Fraction& fraction_1, const Fraction& fraction_2)
 { return fraction_1.GetNumerator() * fraction_2.GetDenominator() < fraction_1.GetDenominator() * fraction_2.GetNumerator() ||
 	     fraction_1.GetInteger() < fraction_2.GetInteger(); }
@@ -173,7 +160,6 @@ int main()
 	cout << "fraction_1" << endl; cin >> fraction_1;
 	cout << "fraction_2" << endl; cin >> fraction_2;
 	cout << "Выберите действие +-*/ " << endl; char sign; cin >> sign;
-
 	switch (sign)
 	{
 	case '+': fraction_3 = fraction_1 + fraction_2; break;
