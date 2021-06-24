@@ -3,6 +3,8 @@ using namespace std;
 #define tab "\t"
 class Fraction;
 
+
+Fraction& FractionReduction(Fraction& other);
 Fraction operator+(const Fraction& fraction_1, const Fraction& fraction_2);
 Fraction operator-(const Fraction& fraction_1, const Fraction& fraction_2);
 Fraction operator*(const Fraction& fraction_1, const Fraction& fraction_2);
@@ -58,7 +60,20 @@ public:
 		this->numerator = numerator;
 		this->denominator = denominator;
 	}
+   Fraction(double integer)
+	{
+		this->integer = integer;
+		integer -= this->integer;
+		this->denominator = 1E+9;
+		this->numerator = integer * denominator;
+		  FractionReduction(*this);
+		 
+		
+	}
 	~Fraction() {}
+	operator double() const { return integer + (double)numerator / denominator; }
+	operator int() const { return integer; }
+	
 	friend ostream& operator<<(ostream& out, const  Fraction& other)
 	{
 		if (!other.GetInteger()) return out << other.GetNumerator() << '/' << other.GetDenominator() << " ( " << other.GetDouble() << " )";
@@ -75,7 +90,7 @@ public:
 	}
 };
 
-Fraction FractionReduction(Fraction& other)
+Fraction& FractionReduction(Fraction& other)
 {
 	for (int i = other.GetNumerator() < 0? -other.GetNumerator(): other.GetNumerator(); i > 0; i--) {
 
@@ -152,10 +167,11 @@ bool operator>(const Fraction& fraction_1, const Fraction& fraction_2)
 { return fraction_1.GetNumerator() * fraction_2.GetDenominator() > fraction_1.GetDenominator() * fraction_2.GetNumerator() ||
          fraction_1.GetInteger() > fraction_2.GetInteger(); }
 bool operator>=(const Fraction& fraction_1, const Fraction& fraction_2) { return fraction_1 == fraction_2 || fraction_1 > fraction_2; }
-
+//#define OTHER
 int main()
 {
 	setlocale(LC_ALL, "ru");
+#ifdef OTHER
 	Fraction fraction_1, fraction_2, fraction_3;
 	cout << "fraction_1" << endl; cin >> fraction_1;
 	cout << "fraction_2" << endl; cin >> fraction_2;
@@ -172,6 +188,10 @@ int main()
 	bool flag = fraction_1 < fraction_2;
 	cout << fraction_3 << endl;
 	cout << flag;
+#endif // DEBUG
+	Fraction A = (double)2.6;
+	//double d = A;
+	cout << A << endl;
 	return 0;
 }
 
