@@ -1,4 +1,4 @@
-#include <iostream>
+ï»¿#include <iostream>
 using namespace std;
 
 class Human
@@ -13,7 +13,7 @@ public:
 	void Set_last_name(const string& last_name) { this->last_name = last_name; }
 	void Set_first_name(const string& first_name) { this->first_name = first_name; }
 	void Set_age(unsigned int age) { this->age = age; }
-	void Print() { cout << last_name << " " << first_name << " " << age << "ëåò." << endl; }
+	void Print() { cout << last_name << " " << first_name << " " << age << "Ð»ÐµÑ‚." << endl; }
 	Human(const string& last_name, const string& first_name, unsigned int age)
 	{
 		Set_last_name(last_name);
@@ -39,7 +39,7 @@ public:
 	void Print()
 	{
 		Human::Print();
-		cout << "ñïåöèàëüíîñòü: " << speciality << " ãðóïïà: " << group << " óñïåâàåìîñòü: " << rating << endl;
+		cout << "ÑÐ¿ÐµÑ†Ð¸Ð°Ð»ÑŒÐ½Ð¾ÑÑ‚ÑŒ: " << speciality << " Ð³Ñ€ÑƒÐ¿Ð¿Ð°: " << group << " ÑƒÑÐ¿ÐµÐ²Ð°ÐµÐ¼Ð¾ÑÑ‚ÑŒ: " << rating << endl;
 	}
 	Student(
 		const string& last_name, const string& first_name, unsigned int age,
@@ -66,7 +66,7 @@ public:
 	void Print()
 	{
 		Human::Print();
-		cout << "ñïåöèàëüíîñòü: " << speciality << " îïûò ïðåïîäàâàíèÿ: " << expirience << " ëåò." << endl;
+		cout << "ÑÐ¿ÐµÑ†Ð¸Ð°Ð»ÑŒÐ½Ð¾ÑÑ‚ÑŒ: " << speciality << " Ð¾Ð¿Ñ‹Ñ‚ Ð¿Ñ€ÐµÐ¿Ð¾Ð´Ð°Ð²Ð°Ð½Ð¸Ñ: " << expirience << " Ð»ÐµÑ‚." << endl;
 	}
 	Teacher(const string& last_name, const string& first_name, unsigned int age,
 		const string& speciality, unsigned int expirience) :Human(last_name, first_name, age)
@@ -87,20 +87,20 @@ public:
 	graduate_student(const string& last_name, const string& first_name, unsigned int age,
 		const string& speciality, const string& group, double rating, const string& project)
 		: Student(last_name, first_name, age, speciality, group, rating) { set_project(project); }
-	void print() { Student::Print(); cout << " Íàçâàíèå ïðîåêòà: " << get_project() << endl; }
+	void print() { Student::Print(); cout << " ÐÐ°Ð·Ð²Ð°Ð½Ð¸Ðµ Ð¿Ñ€Ð¾ÐµÐºÑ‚Ð°: " << get_project() << endl; }
 	~graduate_student() {}
 };
 
 int main()
 {
 	setlocale(LC_ALL, "ru");
-	//Human human("Òóïåíêî", "Âàñèëèé", 18);
+	//Human human("Ð¢ÑƒÐ¿ÐµÐ½ÐºÐ¾", "Ð’Ð°ÑÐ¸Ð»Ð¸Ð¹", 18);
 	//human.Print();
-	Student stud("Òóïåíêî", "Âàñèëèé", 18, "ÐÏÎ", "BV-123", 43.4);
+	Student stud("Ð¢ÑƒÐ¿ÐµÐ½ÐºÐ¾", "Ð’Ð°ÑÐ¸Ð»Ð¸Ð¹", 18, "Ð ÐŸÐž", "BV-123", 43.4);
 	stud.Print();
 	Teacher Albert("Einstein", "Albert", 45, "Astrophisics", 120);
 	Albert.Print();
-	graduate_student gr_std("Òóïåíêî", "Âàñèëèé", 18, "ÐÏÎ", "BV-123", 43.4, "ìîðñêîé áîé");
+	graduate_student gr_std("Ð¢ÑƒÐ¿ÐµÐ½ÐºÐ¾", "Ð’Ð°ÑÐ¸Ð»Ð¸Ð¹", 18, "Ð ÐŸÐž", "BV-123", 43.4, "Ð¼Ð¾Ñ€ÑÐºÐ¾Ð¹ Ð±Ð¾Ð¹");
 	gr_std.print();
 	return 0;
 }
