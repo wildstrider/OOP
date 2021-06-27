@@ -14,7 +14,7 @@ public:
 	void Set_last_name(const string& last_name) { this->last_name = last_name; }
 	void Set_first_name(const string& first_name) { this->first_name = first_name; }
 	void Set_age(unsigned int age) { this->age = age; }
-	virtual void Print() const { cout << last_name << " " << first_name << " " << age << "лет." << endl; }
+	virtual void Print() const { cout << Get_last_name() << " " << Get_first_name() << " " << Get_age() << "лет." << endl; }
 	Human(const string& last_name, const string& first_name, unsigned int age)
 	{
 		Set_last_name(last_name);
@@ -23,8 +23,7 @@ public:
 		cout << "Hconstructor: " << this << endl;
 	}
 	virtual ~Human() { cout << "Hdestructor: " << this << endl; }
-	virtual void Print(ostream& os)	const { os << Get_last_name() << " " << Get_first_name() << " " << Get_age() << endl; }
-	friend ostream& operator<<(ostream& os, const Human& obj); 
+	virtual void Print(ostream& os) const { Print(); }
 };
 
 
@@ -40,10 +39,10 @@ public:
 	void Set_speciality(const string& speciality) { this->speciality = speciality; }
 	void Set_group(const string& group) { this->group = group; }
 	void Set_rating(double rating) { this->rating = rating; }
-	void Print()
+	void Print() const
 	{
 		Human::Print();
-		cout << "специальность: " << speciality << " группа: " << group << " успеваемость: " << rating << endl;
+		cout << "специальность: " << Get_speciality() << " группа: " << Get_group() << " успеваемость: " << Get_rating() << endl;
 	}
 	Student(
 		const string& last_name, const string& first_name, unsigned int age,
@@ -56,14 +55,8 @@ public:
 		cout << "Sconstructor: " << this << endl;
 	}
 	~Student() { cout << "Sdestructor: " << this << endl; }
-	void Print(ostream& os) const
-	{
-		Human::Print();
-		os << "специальность: " << Get_speciality() << " группа: " << Get_group() << " успеваемость: " << Get_rating() << endl;
-	}
+	void Print(ostream& os) const { Print(); }
 };
-
-
 
 class Teacher :public Human
 {
@@ -74,16 +67,12 @@ public:
 	unsigned int Get_expirience() const { return expirience; }
 	void Set_speciality(const string& speciality) { this->speciality = speciality; }
 	void Set_expirence(unsigned int expirience) { this->expirience = expirience; }
-	void Print()
+	void Print() const
 	{
 		Human::Print();
-		cout << "специальность: " << speciality << " опыт преподавания: " << expirience << " лет." << endl;
+		cout << "специальность: " << Get_speciality() << " опыт преподавания: " << Get_expirience() << " лет." << endl;
 	}
-	 void Print(ostream& os) const
-	{
-		Human::Print();
-		os <<  "специальность: " << Get_speciality() << " опыт преподавания: " << Get_expirience() << " лет." << endl;
-	}
+	void Print(ostream& os) const { Print(); }
 	Teacher(const string& last_name, const string& first_name, unsigned int age,
 		const string& speciality, unsigned int expirience) :Human(last_name, first_name, age)
 	{
@@ -94,10 +83,10 @@ public:
 	~Teacher() { cout << "Tdestructor: " << this << endl; }
 };
 
-
 class graduate_student :public Student
 {
 	string project;
+
 public:
 	const string& get_project() const { return project; }
 	void set_project(const string& project) { this->project = project; }
@@ -107,12 +96,13 @@ public:
 		set_project(project);
 		cout << "g_sConstructor: " << this << endl;
 	}
-	void print() { Student::Print(); cout << " Название проекта: " << get_project() << endl; }
-    void Print(ostream& os) { Student::Print(); os << " Название проекта: " << get_project() << endl; }
+	void print() const { Student::Print(); cout << " Название проекта: " << get_project() << endl; }
+	void Print(ostream& os) const  { print(); }
 	~graduate_student() { cout << "g_sDestructor: " << this << endl; }
 };
 
-ostream& operator<<(ostream& os, const Human& obj) { obj.Print(os); return os; }
+ostream& operator<<(ostream& os, const Human& obj) {obj.Print(os); return os; }
+
 int main()
 {
 	setlocale(LC_ALL, "ru");
@@ -152,9 +142,6 @@ int main()
 		cout << *group[i];
 		cout << delimiter << endl;
 	}
-	graduate_student D("Васильев", "Александр", 23, "РПО", "ПВ-01", 90, "морской бой");
-	D.print();
-
 	for (int i = 0; i < sizeof(group) / sizeof(Human*); delete group[i], i++);
 	return 0;
 }
