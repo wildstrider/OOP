@@ -5,7 +5,7 @@
 	double Student::Get_rating() const { return rating; }
 	void Student::Set_speciality(const string& speciality) { this->speciality = speciality; }
 	void Student::Set_group(const string& group) { this->group = group; }
-	void Student::Set_rating(double rating) { this->rating = rating; }
+	void Student::Set_rating(double rating) { if (rating >= 0 && rating <= 100) this->rating = rating; else rating = 0; }
 	void Student::Print() const
 	{
 		Human::Print();

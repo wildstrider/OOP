@@ -20,6 +20,18 @@ public:
 		this->bin = new char[size] {};
 		strcpy(this->bin, bin);
 	}
+	int  bin_to_dec(char str[])
+	{
+		int sum = 0;
+		int k = strlen(str);
+		for (int i = 0; str[i]; i++) {
+
+			if (str[i] != ' ') {
+				sum += (str[i] - '0') * pow(2, --k);
+			}
+		}
+		return sum;
+	}
 	Binary operator+(Binary& right)
 	{
 		int temp = 0;
@@ -50,6 +62,19 @@ public:
 			}
 		}
 		return C;
+	}
+	Binary operator-(Binary& right)
+	{
+		int x = this->bin_to_dec(bin);
+		int y = right.bin_to_dec(bin);
+		if (x < y) 
+		{
+
+			x = -this->bin_to_dec(bin);
+			x = y - x;
+		}
+		else y = -right.bin_to_dec(bin);
+
 	}
 	Binary operator*(Binary& right)
 	{

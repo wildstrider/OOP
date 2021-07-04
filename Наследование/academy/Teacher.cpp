@@ -5,7 +5,11 @@
 	const string& Teacher::Get_speciality() const { return speciality; }
 	unsigned int Teacher::Get_expirience() const { return expirience; }
 	void Teacher::Set_speciality(const string& speciality) { this->speciality = speciality; }
-	void Teacher::Set_expirence(unsigned int expirience) { this->expirience = expirience; }
+	void Teacher::Set_expirence(unsigned int expirience)
+	{
+		if (expirience >= 20 && expirience <= 130) this->expirience = expirience;
+		else expirience = 0;
+	}
 	void Teacher::Print() const
 	{
 		Human::Print();
