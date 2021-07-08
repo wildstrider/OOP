@@ -203,7 +203,143 @@ namespace Geometry
 
 	class Triangle : public Shape
 	{
-	  
+	public:
+		Triangle(Color color) :Shape(color){}
+		~Triangle() {}
+	};
+	class EquilateralTriangle : public Triangle
+	{
+		UINT start_x;
+		UINT start_y;
+		double side;
+	public:
+		double get_side() const { return side; }
+		void set_side(double side)
+		{
+			if (side <= 0)side = 1;
+			this->side = side;
+		}
+		void set_start_x(UINT x)
+		{
+			if (x >= 1000) x = 1000;
+			start_x = x;
+		}
+		void set_start_y(UINT y)
+		{
+			if (y >= 700) y = 700;
+			start_y = y;
+		}
+		EquilateralTriangle(Color color, double side, UINT start_x = 0, UINT start_y = 0):Triangle(color)
+		{
+			set_side(side);
+			set_start_x(start_x);
+			set_start_y(start_y);
+
+		}
+		~EquilateralTriangle() {}
+		double get_areo()const
+		{
+			return side * side * pow(3, 0.5) / 4;
+		}
+		double get_perimeter() const { return side * 3; }
+		double get_height() const { return side * pow(3, 0.5) / 2; }
+		void draw() const 
+		{
+			HWND hwnd = GetConsoleWindow();
+			HDC hdc = GetDC(hwnd);
+
+			HPEN hPen = CreatePen(PS_SOLID, 5, color);
+			HBRUSH hBrush = CreateSolidBrush(color);
+			SelectObject(hdc, hPen);
+			SelectObject(hdc, hBrush);
+			POINT point[] =
+			{
+				{start_x, start_y + side},
+				{start_x + side, start_y + side},
+				{start_x + side / 2,start_y + side - get_height()}
+			};
+			Polygon(hdc, point, sizeof(point) / sizeof(POINT));
+
+			DeleteObject(hPen);
+			DeleteObject(hBrush);
+			ReleaseDC(hwnd, hdc);
+		}
+		void info() const
+		{
+			cout << "равносторонний треугольник\n";
+			cout << "длинна стороны: " << side << endl;
+			cout << "высота: " << get_height() << endl;
+			cout << "площадь: " << get_areo() << endl;
+			cout << "периметр: " << get_perimeter() << endl;
+			draw();
+		}
+
+	};
+	class Isosceies: public Triangle
+	{
+		/*UINT start_x;
+		UINT start_y;
+		double side;
+	public:
+		double get_side() const { return side; }
+		void set_side(double side) 
+		{
+			if (side <= 0)side = 1;
+			this->side = side;
+		}
+		void set_start_x(UINT x)
+		{
+			if (x >= 1000) x = 1000;
+			start_x = x;
+		}
+		void set_start_y(UINT y)
+		{
+			if (y >= 700) y = 700;
+			start_y = y;
+		}
+		Isosceies(Color color, double side, UINT start_x = 0, UINT start_y = 0): Triangle(color)
+		{
+			set_side(side);
+			set_start_x(start_x);
+			set_start_y(start_y);
+		}
+		~Isosceies() {}
+		double get_height() const { return side * pow(3, 0.5) / 2; }
+		double get_areo() const
+		{
+			return 0.5 * side * get_height();
+		}
+		double get_perimeter() const { return side * 3; }
+		void draw() const 
+		{
+			HWND hwnd = GetConsoleWindow();
+			HDC hdc = GetDC(hwnd);
+			HPEN hPen = CreatePen(PS_SOLID, 5, color);
+			HBRUSH hBrush = CreateSolidBrush(color);
+
+			SelectObject(hdc, hPen);
+			SelectObject(hdc, hBrush);
+			POINT point[] =
+			{
+			    {start_x, start_y + side},
+				{start_x + side, start_y + side},
+				{start_x + side / 2,start_y + side - get_height()}
+			};
+			Polygon(hdc, point, sizeof(point)/sizeof(POINT));
+			DeleteObject(hPen);.
+			+
+			DeleteObject(hBrush);
+			ReleaseDC(hwnd, hdc);
+		}
+		void info() const
+		{
+			cout << "равнобедренный треугольник\n";
+			cout << "длинна стороны: " << side << endl;
+			cout << "высота: " << get_height() << endl;
+			cout << "площадь: " << get_areo() << endl;
+			cout << "периметр: " << get_perimeter() << endl;
+			draw();
+		}*/
 	};
 }
 int main()
@@ -220,6 +356,9 @@ int main()
 	rectangle.info();
 	Geometry::Circle circle(Geometry::Color::yellow, 150, 200, 200);
 	circle.info();
+	Geometry::EquilateralTriangle equil_triangle(Geometry::Color::blue, 100,200,400);
+	equil_triangle.info();
+	
 
 	return 0;
 }
