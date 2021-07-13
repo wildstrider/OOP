@@ -10,14 +10,42 @@ template<typename T> class ForwardList
 		Element* pNext;
 		Element( T Data = T(), Element* pNext = nullptr) :  Data(Data), pNext(pNext) {}
 		~Element() {}
+		friend class Iterator;
 	};
 	Element<T>* Head;
 	size_t size;
 public:
+	class Iterator
+	{
+		Element<T>* temp;
+	public:
+		Iterator(Element<T>* temp = nullptr) :temp(temp) { cout << "IConstructor: " << this << endl; }
+		~Iterator() { cout << "IDestructor: " << this << endl; }
+		Iterator& operator++()
+		{
+			temp = temp->pNext;
+			return *this;
+		}
+		bool operator==(const Iterator& other) const {
+			return this->temp == other.temp;
+		}
+		bool operator!=(const Iterator& other) const 
+		{
+			return this->temp != other.temp;
+		}
+		int& operator*() { return temp->Data; }
+	};
+	Iterator begin() { return Head; }
+	Iterator end() { return nullptr; }
 	int get_size() const { return size; }
 	void set_Data(T Data) { this->Data = Data; }
 	ForwardList() :size(0), Head(nullptr) {}
 	explicit ForwardList(size_t size) { for (int i = 0; i < size; push_back(0), i++); }
+	ForwardList(const std::initializer_list<T>& il): ForwardList()
+	{
+		cout << typeid(il.begin()).name() << endl;
+		for(int const* it = il.begin(); it != il.end(); it++) push_back(*it);
+	}
 	/*ForwardList(ForwardList& other)
 	{
 		this->size = 0;
@@ -105,7 +133,7 @@ public:
 	~ForwardList() { clear(); }
 };
 //#define COPY
-#define BASE
+//#define BASE
 int main()
 {
 	setlocale(LC_ALL, "ru");
@@ -151,7 +179,13 @@ int main()
 	//list3 = list2;
 	//for (int i = 0; i < list3.get_size(); cout << "index [" << i << "] " << list3[i] << endl, i++);  
 #endif // COPY
-	
+	//int arr[] = { 1024,2048,4096,8192 };
+	//for (int i = 0; i < sizeof(arr) / sizeof(int); i++) { cout << arr[i] << endl; }
+	//for (int i : arr)cout << i << " " << endl;//rang-based for
+	ForwardList<int> list = { 3,5,8,13,21 };
+	//for (int i = 0; i < list.get_size(); cout << "index [" << i << "] " << list[i] << endl, i++);
+	for (/*ForwardList<int>::Iterator*/auto it = list.begin(); it != list.end(); ++it) { cout << *it << " " << endl; }
+	//for (int i : list)cout << i << endl;
 
 	return 0;
 }
