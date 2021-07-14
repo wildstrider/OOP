@@ -1,4 +1,4 @@
-#include <iostream>
+ï»¿#include <iostream>
 using namespace std;
 #define tab "\t"
 
@@ -115,13 +115,13 @@ public:
 	{
 		for(Element<T>* temp = Head; temp; temp=temp->pNext)
 		cout << "Head: " << temp << " Prev: " << temp->Prev << tab << temp->Data << tab << "pNext: " << temp->pNext << " Tail: " << Tail << endl;
-		cout << "ðàçìåð list: " << size << endl;
+		cout << "Ñ€Ð°Ð·Ð¼ÐµÑ€ list: " << size << endl;
 	}
 	void PrintTail() const
 	{
 		for(Element<T>* temp = Tail; temp; temp= temp->Prev)
 		cout << "Head: " << temp << " Prev: " << temp->Prev << tab << temp->Data << tab << "pNext: " << temp->pNext << " Tail: " << Tail << endl;
-		cout << "ðàçìåð list: " << size << endl;
+		cout << "Ñ€Ð°Ð·Ð¼ÐµÑ€ list: " << size << endl;
 	}
 	~RoundTripList() { while (Head) pop_front(); cout << "LDetructor: " << this << endl; }
 };
