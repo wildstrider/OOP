@@ -100,46 +100,27 @@ public:
 	}
 	void erase(const size_t index)
 	{
+		Element<T>* temp;
 		if (index > size - 1) return;
 		if (index == 0) return pop_front();
 		if (index == size - 1) return pop_back();
-		if (index > size / 2 || index == size / 2)
-		{
-			Element<T>* temp = Tail;
-			for (int i = size - 1; i > index; temp = temp->Prev, i--);
-			temp->pNext->Prev = temp->Prev;
-			temp->Prev->pNext = temp->pNext;
-			delete temp;
-			size--;
-		}
-		else
-		{
-			Element<T>* temp = Head;
-			for (int i = 0; i < index; temp = temp->pNext, i++);
-			temp->pNext->Prev = temp->Prev;
-			temp->Prev->pNext = temp->pNext;
-			delete temp;
-			size--;
-		}
+		if (index > size / 2 || index == size / 2) { temp = Tail; for (int i = size - 1; i > index; temp = temp->Prev, i--); }
+		else { temp = Head; for (int i = 0; i < index; temp = temp->pNext, i++); }
+		temp->pNext->Prev = temp->Prev;
+		temp->Prev->pNext = temp->pNext;
+		delete temp;
+		size--;
 	}
 	void PrintHead() const
 	{
-		Element<T>* temp = Head;
-		while (temp)
-		{
-			cout << "Head: " << temp << " Prev: " << temp->Prev << tab << temp->Data << tab << "pNext: " << temp->pNext << " Tail: " << Tail << endl;
-			temp = temp->pNext;
-		}
+		for(Element<T>* temp = Head; temp; temp=temp->pNext)
+		cout << "Head: " << temp << " Prev: " << temp->Prev << tab << temp->Data << tab << "pNext: " << temp->pNext << " Tail: " << Tail << endl;
 		cout << "размер list: " << size << endl;
 	}
 	void PrintTail() const
 	{
-		Element<T>* temp = Tail;
-		while (temp)
-		{
-			cout << "Head: " << temp << " Prev: " << temp->Prev << tab << temp->Data << tab << "pNext: " << temp->pNext << " Tail: " << Tail << endl;
-			temp = temp->Prev;
-		}
+		for(Element<T>* temp = Tail; temp; temp= temp->Prev)
+		cout << "Head: " << temp << " Prev: " << temp->Prev << tab << temp->Data << tab << "pNext: " << temp->pNext << " Tail: " << Tail << endl;
 		cout << "размер list: " << size << endl;
 	}
 	~RoundTripList() { while (Head) pop_front(); cout << "LDetructor: " << this << endl; }
@@ -154,14 +135,14 @@ int main()
 	list.push_front(14);
 	list.push_front(1);
 	list.push_back(55);
-	list.push_back(60);
-	list.push_back(5);
+	//list.push_back(60);
+	//list.push_back(5);
 	//list.pop_front();
 	//list.pop_back();
 	list.PrintHead();
-	list.insert(4, 500);
-	list.insert(2, 350);
-	list.erase(7);
+	//list.insert(4, 500);
+	//list.insert(2, 350);
+	list.erase(3);
 	list.PrintHead();
 	cout << endl;
 	list.PrintTail();

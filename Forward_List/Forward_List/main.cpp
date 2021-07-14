@@ -8,7 +8,7 @@ template<typename T> class ForwardList
 	public:
 		T Data;
 		Element* pNext;
-		Element( T Data = T(), Element* pNext = nullptr) :  Data(Data), pNext(pNext) {}
+		Element(T Data = T(), Element* pNext = nullptr) : Data(Data), pNext(pNext) {}
 		~Element() {}
 		friend class Iterator;
 	};
@@ -29,7 +29,7 @@ public:
 		bool operator==(const Iterator& other) const {
 			return this->temp == other.temp;
 		}
-		bool operator!=(const Iterator& other) const 
+		bool operator!=(const Iterator& other) const
 		{
 			return this->temp != other.temp;
 		}
@@ -41,10 +41,10 @@ public:
 	void set_Data(T Data) { this->Data = Data; }
 	ForwardList() :size(0), Head(nullptr) {}
 	explicit ForwardList(size_t size) { for (int i = 0; i < size; push_back(0), i++); }
-	ForwardList(const std::initializer_list<T>& il): ForwardList()
+	ForwardList(const std::initializer_list<T>& il) : ForwardList()
 	{
 		cout << typeid(il.begin()).name() << endl;
-		for(int const* it = il.begin(); it != il.end(); it++) push_back(*it);
+		for (int const* it = il.begin(); it != il.end(); it++) push_back(*it);
 	}
 	/*ForwardList(ForwardList& other)
 	{
@@ -121,7 +121,7 @@ public:
 	}
 	ForwardList(const ForwardList& other) :ForwardList()
 	{
-		for(Element<T>* temp = other.Head;temp;temp->pNext) push_back(temp->Data);
+		for (Element<T>* temp = other.Head; temp; temp->pNext) push_back(temp->Data);
 		/*Element<T>* temp = other.Head;
 		while (temp)
 		{
